@@ -21,7 +21,7 @@
 <div class="layout">
     @include('compartido.sidebar')
 
-    <div class="main">
+    <div class="main" style="margin-left: 0 !important;">
         <div class="topbar z-40 relative">
             {{-- Botón hamburguesa visible solo en móvil --}}
             <button type="button" id="btn-menu-trigger" style="cursor: pointer; padding: 10px; z-index: 10000;" class="md:hidden">☰</button>
