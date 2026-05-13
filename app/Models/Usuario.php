@@ -18,8 +18,17 @@ class Usuario extends Authenticatable
     public function propiedades() {
         return $this->hasMany(Propiedad::class, 'agente_id');
     }
+
     public function solicitudes() {
         return $this->hasMany(SolicitudVisita::class, 'cliente_id');
+    }
+
+    public function seguimientosComoCliente() {
+        return $this->hasMany(Seguimiento::class, 'cliente_id');
+    }
+
+    public function seguimientosComoAgente() {
+        return $this->hasMany(Seguimiento::class, 'agente_id');
     }
 
     public function esAdmin()     { return $this->rol === 'administrador'; }

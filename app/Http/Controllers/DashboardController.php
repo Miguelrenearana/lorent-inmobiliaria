@@ -27,14 +27,12 @@ class DashboardController extends Controller
         $misProps    = Propiedad::where('agente_id',$id)->count();
         $disponibles = Propiedad::where('agente_id',$id)->where('estado','Disponible')->count();
         $vendidas    = Propiedad::where('agente_id',$id)->where('estado','Vendido')->count();
-        $visitasPend = SolicitudVisita::whereHas('propiedad',
-                           fn($q) => $q->where('agente_id',$id))
-                           ->where('estado','pendiente')->count();
+        $visitasPend = SolicitudVisita::where('estado', 'Pendiente')->whereHas('propiedad', function($q) { $q->where('agente_id', auth()->id()); })->count();
         $ultimas     = Propiedad::where('agente_id',$id)->orderBy('id','desc')->limit(5)->get();
         $visitas     = SolicitudVisita::with(['propiedad','cliente'])
-                           ->whereHas('propiedad', fn($q) => $q->where('agente_id',$id))
-                           ->where('estado','pendiente')
-                           ->orderBy('fecha_solicitada')->limit(5)->get();
+                           ->where('estado', 'Pendiente')
+                           ->whereHas('propiedad', function($q) { $q->where('agente_id', auth()->id()); })
+                           ->orderBy('fecha_solicitada')->take(5)->get();
 
         return view('agente.dashboard', compact(
             'misProps','disponibles','vendidas','visitasPend','ultimas','visitas'

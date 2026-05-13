@@ -92,7 +92,7 @@
 {{-- ═══════════════════════════════════════
      TARJETAS DE RESUMEN
 ════════════════════════════════════════ --}}
-<div class="stats" style="margin-bottom:20px">
+<div class="stats grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" style="margin-bottom:20px">
 
     <div class="stat-card">
         <p class="stat-label">Inicios de sesión</p>
@@ -174,7 +174,8 @@
     </div>
 
     <div class="table-responsive">
-        <table>
+<div class="w-full overflow-x-auto shadow-sm rounded-lg border border-gray-200">
+<table class="min-w-[600px] w-full text-sm text-left">
             <thead>
                 <tr>
                     <th>#</th>
@@ -240,7 +241,8 @@
             @endforelse
             </tbody>
         </table>
-    </div>
+</div>
+ </div>
 </div>
 
 @endsection

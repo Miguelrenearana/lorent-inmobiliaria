@@ -9,7 +9,8 @@
         <span class="card-title">Lista de usuarios</span>
         <button class="btn-primary" onclick="abrirModal()">+ Agregar usuario</button>
     </div>
-    <table>
+<div class="w-full overflow-x-auto shadow-sm rounded-lg border border-gray-200">
+<table class="min-w-[600px] w-full text-sm text-left">
         <thead><tr><th>#</th><th>Nombre</th><th>Correo</th><th>Usuario</th><th>Rol</th><th>Acciones</th></tr></thead>
         <tbody>
         @forelse($usuarios as $u)
@@ -68,8 +69,10 @@
     </table>
 </div>
 
+</div>
+
 <div class="modal-overlay" id="modalOverlay">
-<div class="modal">
+<div class="modal w-[95%] max-w-lg mx-auto sm:w-full">
     <h2 id="modalTitulo">Agregar usuario</h2>
     <form id="formUsuario" method="POST" action="{{ route('admin.usuarios.store') }}">
         @csrf <span id="methodField"></span>
