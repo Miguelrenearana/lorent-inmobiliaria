@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('titulo', 'Lorent Inmobiliaria')</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
     @if(in_array(auth()->user()->rol, ['administrador','agente','asistente']))
         <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     @else
