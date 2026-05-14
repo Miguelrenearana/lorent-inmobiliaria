@@ -51,4 +51,4 @@ RUN chown -R www-data:www-data /var/www/html \
 EXPOSE 10000
 
 # PROCESO PRINCIPAL (Modificado para persistencia)
-CMD sh -c "php artisan migrate --force && apache2-foreground"
+CMD sh -c ["php artisan migrate ,apache2-foreground"]
