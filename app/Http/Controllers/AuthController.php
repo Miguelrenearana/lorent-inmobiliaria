@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http; //add para API
 
 /**
  * Controlador de autenticación.
@@ -116,7 +117,30 @@ class AuthController extends Controller
                 'email' => $usuario->correo,
             ]);
 
-            Mail::to($usuario->correo)->send(new PasswordResetMail($resetUrl, $usuario->nombre));
+            // Mail::to($usuario->correo)->send(new PasswordResetMail($resetUrl, $usuario->nombre));
+            //NEW API BREVO
+            Http::withHeaders([
+                'api-key' => env('BREVO_API_KEY'),
+                'Content-Type' => 'application/json',
+            ])->post('https://api.brevo.com/v3/smtp/email', [
+                'sender' => [
+                    'name' => 'Lorent Inmobiliaria',
+                    'email' => 'lorent.proyecto@gmail.com',
+                ],
+                'to' => [
+                    [
+                        'email' => $usuario->correo,
+                        'name' => $usuario->nombre,
+                    ]
+                ],
+                'subject' => 'Recuperación de contraseña',
+                'htmlContent' => "
+                    <h3>Recuperación de contraseña</h3>
+                    <p>Hola {$usuario->nombre},</p>
+                    <p>Haz clic aquí para recuperar tu contraseña:</p>
+                    <a href='{$resetUrl}'>Restablecer contraseña</a>
+                ",
+            ]);
         }
 
         return back()->with('success', 'Si ese correo existe, te enviamos un enlace para recuperar la contraseña.');
