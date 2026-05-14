@@ -16,7 +16,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 RUN a2enmod rewrite
 
 # Copiar proyecto
-COPY . /var/www/html/git
+# 1. Copiar proyecto a la raíz de Apache (SIN el /git al final)
+COPY . /var/www/html/
+
+# 2. Asegúrate de que el WORKDIR sea el mismo
 WORKDIR /var/www/html
 
 # PHP deps
